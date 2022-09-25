@@ -1,7 +1,7 @@
 package cybersoft.javabackend.java18.gira.common.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import cybersoft.javabackend.java18.gira.common.util.DataTimeUtils;
+import cybersoft.javabackend.java18.gira.common.util.DateTimeUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,8 +42,8 @@ public class BaseEntity implements Serializable {
     @Column(name = Columns.CREATED_BY)
     protected String createdBy;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DataTimeUtils.DATE_TIME_FORMAT)
-    @DateTimeFormat(pattern = DataTimeUtils.DATE_TIME_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeUtils.DATE_TIME_FORMAT)
+    @DateTimeFormat(pattern = DateTimeUtils.DATE_TIME_FORMAT)
     @CreatedDate
     @Column(name = Columns.CREATED_AT)
     protected LocalDateTime createdAt;
@@ -52,8 +52,8 @@ public class BaseEntity implements Serializable {
     @Column(name = Columns.LAST_MODIFIED_BY)
     protected String lastModifiedBy;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DataTimeUtils.DATE_TIME_FORMAT)
-    @DateTimeFormat(pattern = DataTimeUtils.DATE_TIME_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeUtils.DATE_TIME_FORMAT)
+    @DateTimeFormat(pattern = DateTimeUtils.DATE_TIME_FORMAT)
     @LastModifiedDate
     @Column(name = Columns.LAST_MODIFIED_AT)
     protected LocalDateTime lastModifiedAt;
