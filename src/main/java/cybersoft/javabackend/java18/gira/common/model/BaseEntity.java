@@ -68,4 +68,11 @@ public class BaseEntity implements Serializable {
         static final String LAST_MODIFIED_AT = "LAST_MODIFIED_AT";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.id.equals(((BaseEntity) obj).id);
+    }
+
+
+
 }
