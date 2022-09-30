@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface IRoleService extends IGenericService<RoleModel, RoleDTO, UUID> {
     RoleModel update(RoleModel role, String code);
     void deleteByCode(String code);
-
+    RoleDTO save(RoleDTO roleDto);
 }

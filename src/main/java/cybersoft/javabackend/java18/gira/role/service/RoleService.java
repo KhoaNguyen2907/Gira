@@ -1,6 +1,7 @@
 package cybersoft.javabackend.java18.gira.role.service;
 
 import cybersoft.javabackend.java18.gira.common.util.GiraMapper;
+import cybersoft.javabackend.java18.gira.role.dto.RoleDTO;
 import cybersoft.javabackend.java18.gira.role.model.RoleModel;
 import cybersoft.javabackend.java18.gira.role.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public RoleModel update(RoleModel role, String code) {
-        RoleModel foundRole = repository.findByCode(code);
+        RoleModel foundRole = repository.findByCode(code).orElseGet(() -> {return null;});
         foundRole.setName(role.getName());
         foundRole.setDescription(role.getDescription());
         return foundRole;
@@ -40,5 +41,12 @@ public class RoleService implements IRoleService {
     @Override
     public void deleteByCode(String code) {
         repository.deleteByCode(code);
+    }
+
+    @Override
+    public RoleDTO save(RoleDTO roleDto) {
+        RoleModel role = mapToEntity(roleDto,RoleModel.class);
+        role = repository.save(role);
+        return mapToDto(role,RoleDTO.class);
     }
 }
