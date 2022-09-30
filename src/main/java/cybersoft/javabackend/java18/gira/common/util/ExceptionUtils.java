@@ -1,6 +1,8 @@
 package cybersoft.javabackend.java18.gira.common.util;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -15,6 +17,13 @@ public class ExceptionUtils {
         return exception.getConstraintViolations()
                 .stream()
                 .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getErrors(MethodArgumentNotValidException exception) {
+        return exception.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
                 .collect(Collectors.toList());
     }
 

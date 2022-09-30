@@ -1,6 +1,7 @@
 package cybersoft.javabackend.java18.gira.role.model;
 
 import cybersoft.javabackend.java18.gira.common.model.BaseEntity;
+import cybersoft.javabackend.java18.gira.role.validation.annotation.UniqueRoleName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,15 +24,16 @@ import java.io.Serializable;
 public class RoleModel extends BaseEntity implements Serializable {
 
     @Column(name = "name")
-    @Length (min = 5, max = 50, message = "Role name must be between {min} and {max} characters")
+    @Length (min = 5, max = 50, message = "{role.name.length}")
+    @UniqueRoleName
     private String name;
 
     @Column(name = "code" , unique = true)
-    @Length(min = 6, max = 6, message = "Code must be 6 characters")
+    @Length(min = 5, max = 50, message = "{role.code.length}")
     private String code;
 
     @Column(name = "description")
-    @NotBlank
+    @NotBlank (message = "{role.description.blank}")
     private String description;
 
     @Override

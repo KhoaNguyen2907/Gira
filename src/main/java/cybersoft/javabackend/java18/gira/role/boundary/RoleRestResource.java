@@ -7,13 +7,10 @@ import cybersoft.javabackend.java18.gira.role.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/roles")
@@ -22,14 +19,14 @@ public class RoleRestResource {
     private IRoleService service;
 
     @GetMapping
-    public Object getRoles(){
+    public Object getRoles() {
         List<RoleDTO> list = service.findAllDto(RoleDTO.class);
         return ResponseUtils.get(list, HttpStatus.OK);
     }
 
     @GetMapping("/paging")
     public Object findAllDtoPaging(@RequestParam("size") int size,
-                                   @RequestParam("index") int index){
+                                   @RequestParam("index") int index) {
         return ResponseUtils.get(
                 service.findAllDto(Pageable.ofSize(size).withPage(index), RoleDTO.class)
                 , HttpStatus.OK
@@ -37,19 +34,19 @@ public class RoleRestResource {
     }
 
     @PostMapping
-    public Object addRole(@RequestBody RoleModel role){
-        return ResponseUtils.get(service.mapToDto(service.save(role),RoleDTO.class), HttpStatus.CREATED);
+    public Object addRole(@Valid @RequestBody RoleDTO role) {
+        return ResponseUtils.get(service.save(role), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public Object updateRole(@RequestBody RoleModel role, @PathVariable("code") String code){
-        return ResponseUtils.get(service.mapToDto(service.update(role,code),RoleDTO.class), HttpStatus.OK);
+    public Object updateRole(@RequestBody RoleModel role, @PathVariable("code") String code) {
+        return ResponseUtils.get(service.mapToDto(service.update(role, code), RoleDTO.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{code}")
-    public Object deleteRole(@PathVariable String code){
+    public Object deleteRole(@PathVariable String code) {
         service.deleteByCode(code);
-        return ResponseUtils.get(code,HttpStatus.OK);
+        return ResponseUtils.get(code, HttpStatus.OK);
     }
 }
 
