@@ -12,19 +12,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-
 
 @Setter
 @Getter
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "gira_role")
-public class RoleModel extends BaseEntity implements Serializable {
-
-    @Column(name = "name")
-    @Length (min = 5, max = 50, message = "{role.name.length}")
+@Table(name = "gira_module")
+public class Module extends BaseEntity {
+    @Column(name = "name", unique = true, length = 100)
+    @Length(min = 5, max = 50, message = "{role.name.length}")
     @UniqueRoleName
     private String name;
 
@@ -33,14 +30,6 @@ public class RoleModel extends BaseEntity implements Serializable {
     private String code;
 
     @Column(name = "description")
-    @NotBlank (message = "{role.description.blank}")
+    @NotBlank(message = "{role.description.blank}")
     private String description;
-
-    @Override
-    public boolean equals(Object obj) {
-        RoleModel roleObj = (RoleModel) obj;
-        return super.equals(obj)
-                && roleObj.name.equals(name)
-                && roleObj.code.equals(code);
-    }
 }

@@ -15,8 +15,9 @@ import java.util.UUID;
 @Builder
 public class RoleDTO {
     private UUID id;
-    @UniqueRoleName
+
     @Length(min = 5, max = 50, message = "{role.name.length}")
+    @UniqueRoleName
     private String name;
 
     @UniqueRoleCode
