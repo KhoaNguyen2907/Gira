@@ -1,6 +1,6 @@
 package cybersoft.javabackend.java18.gira.role.validation.validator;
 
-import cybersoft.javabackend.java18.gira.role.model.RoleModel;
+import cybersoft.javabackend.java18.gira.role.model.Role;
 import cybersoft.javabackend.java18.gira.role.repository.IRoleRepository;
 import cybersoft.javabackend.java18.gira.role.validation.annotation.UniqueRoleName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,20 @@ import java.util.Optional;
 public class UniqueRoleNameValidator implements ConstraintValidator<UniqueRoleName,String> {
     private String message;
 
-    @Autowired
-    private IRoleRepository repository;
+    private final IRoleRepository roleRepository;
+    public UniqueRoleNameValidator(IRoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public void initialize(UniqueRoleName constraintAnnotation) {
         message = constraintAnnotation.message();
+
     }
 
     @Override
     public boolean isValid(String name, ConstraintValidatorContext constraintValidatorContext) {
-        Optional<RoleModel> role = repository.findByName(name);
+        Optional<Role> role = roleRepository.findByName(name);
         if (role.isEmpty()){
             return true;
         }
